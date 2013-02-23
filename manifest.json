@@ -1,0 +1,36 @@
+{  
+  "name": "autohome boost",  
+  "version": "0.1.0",  
+  "description": "为汽车之家增加一些缺失的功能, 比如车系的收藏和车型的收藏.",  
+  "page_action": {  
+    "default_icon": "icon.png" ,
+    "default_title": "autohome boost",
+    "default_popup": "my_account.html"
+  }, 
+  "permissions": [
+    "background",
+    "webNavigation",
+    "browsingData",
+    "tabs",
+    "*://*.autohome.com.cn/*",
+    "http://*/"
+  ],
+
+   "content_scripts": [
+    {
+      "matches": [ "*://www.autohome.com.cn/*" ],
+      "run_at" : "document_end",
+      "css" : [ "series_fav.css" ],
+      "js": [ "series_fav.js" ]
+    },
+    {
+      "matches": [ "*://www.autohome.com.cn/spec/*" ],
+      "run_at" : "document_end",
+      "js": [ "spec_fav.js" ]
+    }
+  ],
+
+  "background" : { "scripts": ["background.js"] },
+
+  "manifest_version": 2
+} 

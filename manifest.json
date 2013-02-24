@@ -8,29 +8,34 @@
     "default_popup": "my_account.html"
   }, 
   "permissions": [
-    "background",
     "webNavigation",
-    "browsingData",
     "tabs",
     "*://*.autohome.com.cn/*",
+    "http://localhost:8080/*",
     "http://*/"
   ],
 
    "content_scripts": [
     {
-      "matches": [ "*://www.autohome.com.cn/*" ],
+      "matches": [ "*://www.autohome.com.cn/*/" ],
+      "exclude_globs" : ["*//www.autohome.com.cn/*/?*?/"],
       "run_at" : "document_end",
       "css" : [ "series_fav.css" ],
       "js": [ "series_fav.js" ]
     },
     {
-      "matches": [ "*://www.autohome.com.cn/spec/*" ],
+      "matches": [ "*://www.autohome.com.cn/spec/*/" ],
+      "exclude_globs" : ["*//www.autohome.com.cn/spec/*/?*?"],
       "run_at" : "document_end",
+      "css" : [ "spec_fav.css" ],
       "js": [ "spec_fav.js" ]
     }
   ],
 
-  "background" : { "scripts": ["background.js"] },
+  "web_accessible_resources" : [
+    "series_fav_clicked.js",
+    "spec_fav_clicked.js"
+  ],
 
   "manifest_version": 2
 } 

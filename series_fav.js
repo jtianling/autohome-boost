@@ -1,39 +1,51 @@
-var xhr = new XMLHttpRequest();
-var url = 'http://localhost:8080/is_series_fav?name=a&code=10';
-xhr.onreadystatechange = handler;
-xhr.open("GET", url, true);
-xhr.send(null);
+var seriesUrlPattern = /http:\/\/www.autohome.com.cn\/\d+\//;
+console.log(document.URL);
 
-var favText = '收藏';
-function handler() {
-  if (xhr.readyState === 4) {
-    if (xhr.status === 200) {
-      alert(xhr.responseText);
-      var result = JSON.parse(xhr.responseText);
-      if (result.result) {
-        favText = '已收藏';
+// fliter the error pages with a program way, because the matches' way of google's manifest's content_scripts is not usable.
+if ( document.URL.match(seriesUrlPattern) !== null ) {
+
+  // get the name and code
+  var name = document.getElementsByClassName("mini_right")[0].getElementsByClassName("reda")[0].textContent;
+  console.log("name: " + name);
+
+  var href = document.getElementsByClassName("carname")[0].getElementsByTagName("a")[0].getAttribute("href");
+  var code = href.substring(0, href.length - 1);
+  console.log("code: " + code);
+
+  // decide if it was faved.
+  var xhr = new XMLHttpRequest();
+  var url = 'http://localhost:8080/is_series_fav?name=' + name + '&code=' + code;
+  xhr.onreadystatechange = handler;
+  xhr.open("GET", url, true);
+  xhr.send(null);
+
+  var favText = '收藏';
+  function handler() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        console.log(xhr.responseText);
+        var result = JSON.parse(xhr.responseText);
+        if (result.result) {
+          favText = '已收藏';
+        }
+        addTheFavFeature();
       }
-      addTheFavFeature();
-    }
-    else {
-      alert("Error with Ajax Call!");
+      else {
+        console.log("Error with Ajax Call!");
+      }
     }
   }
-}
 
-function addTheFavFeature() {
-  var element = document.getElementsByClassName("carname");
-  element[0].outerHTML = element[0].outerHTML + '<div class="series_fav" id="series_fav"> \
-  <a id="series_fav_href" href="javascript:void(0)" onclick="(function () {\
-    console.log(\'addFav called\');\
-    var hrefNode = $(\'series_fav_href\');\
-    if (hrefNode.textContent === \'收藏\') {\
-      hrefNode.textContent = \'已收藏\';\
-    }\
-    else {\
-      hrefNode.textContent = \'收藏\';\
-    }\
-  })();\
-  ">' + favText + '</a> </div>';
+  var testScript = document.createElement('script');
+  testScript.setAttribute('src', chrome.extension.getURL('series_fav_clicked.js'));
+  testScript.setAttribute('charset', 'UTF-8');
+  document.getElementsByTagName('head')[0].appendChild(testScript);
+
+  // add the feature after get the infos.
+  function addTheFavFeature() {
+    var element = document.getElementsByClassName("carname");
+    element[0].outerHTML = element[0].outerHTML + '<div class="series_fav" id="series_fav"> \
+                           <a id="series_fav_href" href="javascript:void(0)" onclick="series_fav_clicked();">' + favText + '</a> </div>';
+  }
 }
 

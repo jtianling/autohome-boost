@@ -11,7 +11,7 @@
     "webNavigation",
     "tabs",
     "*://*.autohome.com.cn/*",
-    "http://localhost:8080/*",
+    "http://localhost:10001/*",
     "http://*/"
   ],
 
@@ -22,20 +22,17 @@
       "run_at" : "document_end",
       "css" : [ "series_fav.css" ],
       "js": [ "series_fav.js" ]
-    },
-    {
-      "matches": [ "*://www.autohome.com.cn/spec/*/" ],
-      "exclude_globs" : ["*//www.autohome.com.cn/spec/*/?*?"],
-      "run_at" : "document_end",
-      "css" : [ "spec_fav.css" ],
-      "js": [ "spec_fav.js" ]
     }
   ],
 
   "web_accessible_resources" : [
-    "series_fav_clicked.js",
-    "spec_fav_clicked.js"
+    "series_fav_clicked.js"
   ],
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
 
   "manifest_version": 2
 } 

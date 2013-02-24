@@ -1,3 +1,10 @@
+function scriptLoad(url) {
+  var commonScript = document.createElement('script');
+  commonScript.setAttribute('src', url);
+  commonScript.setAttribute('charset', 'UTF-8');
+  document.getElementsByTagName('head')[0].appendChild(commonScript);
+}
+
 function series_fav_clicked() {
   console.log('addFav called');
 
@@ -18,17 +25,13 @@ function series_fav_clicked() {
   var hrefNode = $('series_fav_href');
   if (hrefNode.textContent === '收藏') {
     hrefNode.textContent = '已收藏';
-    var url = 'http://localhost:8080/add_series_fav?name=' + name + '&code=' + code + '&desc=' + desc + '&price=' + price + '&url=' + document.URL;
-    var script = document.createElement('script');
-    script.setAttribute('src', url);
-    document.getElementsByTagName('head')[0].appendChild(script);
+    var url = 'http://localhost:10001/add_series_fav?name=' + name + '&code=' + code + '&desc=' + desc + '&price=' + price + '&url=' + document.URL;
+    scriptLoad(url);
   }
   else {
     hrefNode.textContent = '收藏';
-    var url = 'http://localhost:8080/del_series_fav?name=' + name + '&code=' + code;
-    var script = document.createElement('script');
-    script.setAttribute('src', url);
-    document.getElementsByTagName('head')[0].appendChild(script);
+    var url = 'http://localhost:10001/del_series_fav?name=' + name + '&code=' + code;
+    scriptLoad(url);
   }
 }
 

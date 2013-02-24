@@ -14,7 +14,7 @@ if ( document.URL.match(seriesUrlPattern) !== null ) {
 
   // decide if it was faved.
   var xhr = new XMLHttpRequest();
-  var url = 'http://localhost:8080/is_series_fav?name=' + name + '&code=' + code;
+  var url = 'http://localhost:10001/is_series_fav?name=' + name + '&code=' + code;
   xhr.onreadystatechange = handler;
   xhr.open("GET", url, true);
   xhr.send(null);
@@ -36,10 +36,10 @@ if ( document.URL.match(seriesUrlPattern) !== null ) {
     }
   }
 
-  var testScript = document.createElement('script');
-  testScript.setAttribute('src', chrome.extension.getURL('series_fav_clicked.js'));
-  testScript.setAttribute('charset', 'UTF-8');
-  document.getElementsByTagName('head')[0].appendChild(testScript);
+  var seriesScript = document.createElement('script');
+  seriesScript.setAttribute('src', chrome.extension.getURL('series_fav_clicked.js'));
+  seriesScript.setAttribute('charset', 'UTF-8');
+  document.getElementsByTagName('head')[0].appendChild(seriesScript);
 
   // add the feature after get the infos.
   function addTheFavFeature() {

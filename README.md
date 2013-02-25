@@ -29,11 +29,14 @@ http://42.121.57.45:10001/get_favs
 参数: type(收藏的类型), name(用户名)  
 返回结果: Json类型, 为add_fav时添加的所有属性的数组, 典型的形式如下:  
 
-    ```json
-    [{"name":"九天雁翎","type":"series","code":"364","desc":"长安福特-福克斯","price":"9.98～16.99万","url":"http://www.autohome.com.cn/364/"}, 
-    {"name":"九天雁翎","type":"series","code":"577","desc":"长安福特-蒙迪欧-致胜","price":"16.98～25.68万","url":"http://www.autohome.com.cn/577/"},
-    {"name":"九天雁翎","type":"series","code":"2863","desc":"长安福特-翼虎","price":"19.38～27.58万","url":"http://www.autohome.com.cn/2863/"}] 
-    ```
+```json
+[{"name":"九天雁翎","type":"series","code":"364","desc":"长安福特-福克斯",
+  "price":"9.98～16.99万","url":"http://www.autohome.com.cn/364/"}, 
+{"name":"九天雁翎","type":"series","code":"577","desc":"长安福特-蒙迪欧-致胜",
+  "price":"16.98～25.68万","url":"http://www.autohome.com.cn/577/"},
+{"name":"九天雁翎","type":"series","code":"2863","desc":"长安福特-翼虎",
+  "price":"19.38～27.58万","url":"http://www.autohome.com.cn/2863/"}] 
+```
   
 目前的type类型是series(车系).  
 推荐将来的收藏类型为 spec(具体车型), new(新闻), article(文章), advice(导购)等, 以参考autohome本身网站链接的英文为最佳选择.  

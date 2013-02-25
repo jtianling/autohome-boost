@@ -5,20 +5,18 @@
   "page_action": {  
     "default_icon": "icon.png" ,
     "default_title": "autohome boost",
-    "default_popup": "my_account.html"
+    "default_popup": "credit.html"
   }, 
   "permissions": [
     "webNavigation",
     "tabs",
     "*://*.autohome.com.cn/*",
-    "http://localhost:10001/*",
-    "http://*/"
+    "http://42.121.57.45:10001/*"
   ],
 
    "content_scripts": [
     {
-      "matches": [ "*://www.autohome.com.cn/*/" ],
-      "exclude_globs" : ["*//www.autohome.com.cn/*/?*?/"],
+      "matches": [ "*://www.autohome.com.cn/*/*" ],
       "run_at" : "document_end",
       "css" : [ "series_fav.css" ],
       "js": [ "series_fav.js" ]

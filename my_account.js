@@ -4,7 +4,7 @@ var args = document.URL.split('?');
 console.log(args[1]);
 
 var xhr = new XMLHttpRequest();
-var url = 'http://localhost:10001/get_series_favs?name=' + args[1];
+var url = 'http://42.121.57.45:10001/get_favs?name=' + args[1] + '&type=series';
 xhr.onreadystatechange = handler;
 xhr.open("GET", url, true);
 xhr.send(null);

@@ -16,7 +16,12 @@
 
    "content_scripts": [
     {
-      "matches": [ "*://www.autohome.com.cn/*/*" ],
+      "matches": [ "*://www.autohome.com.cn/*" ],
+      "run_at" : "document_end",
+      "js": [ "my_favs.js" ]
+    },
+    {
+      "matches": [ "*://www.autohome.com.cn/*" ],
       "run_at" : "document_end",
       "css" : [ "series_fav.css" ],
       "js": [ "series_fav.js" ]

@@ -1,5 +1,5 @@
 (function() {
-  console.log('passed the manifest test');
+  console.log('series_fav passed the manifest test');
 
   // \d+ matches the series code and the (\?.+)? matches the arugments
   var seriesUrlPattern = /http:\/\/www.autohome.com.cn\/\d+\/(\?.+)?/;
@@ -29,11 +29,6 @@
 
   var name = nameNode.textContent;
   console.log("name: " + name);
-
-  var myAccountUrl = '"chrome-extension://dnokncbknhiodkeejcakabdoicehgkcd/my_account.html?' + encodeURIComponent(name) + '"';
-  var myAccountNode = document.createElement('li');
-  myAccountNode.innerHTML = '<a href=' + myAccountUrl + ' target="_blank"> 收藏列表 </a>';
-  document.getElementById('login').appendChild(myAccountNode); 
 
   var href = document.getElementsByClassName("carname")[0].getElementsByTagName("a")[0].getAttribute("href");
   var code = href.substring(0, href.length - 1);

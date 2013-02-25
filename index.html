@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Autohome-boost : 为autohome增加收藏功能" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Autohome-boost</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/jtianling/autohome-boost">View on GitHub</a>
+
+          <h1 id="project_title">Autohome-boost</h1>
+          <h2 id="project_tagline">为autohome增加收藏功能</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/jtianling/autohome-boost/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/jtianling/autohome-boost/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Autohome网站增强插件(Autohome boost)</h1>
+
+<h2>简介</h2>
+
+<p>目前仅有的功能是实现autohome对车系的收藏.  但是服务器方面已经实现了对收藏的通用实现, 并且客户端的代码已经开源.<br>
+欢迎大家添加更多的新功能, 比如对具体车型, 新闻, 文章等的收藏.  </p>
+
+<h2>客户端代码说明</h2>
+
+<p>主要通过chrome插件的<a href="http://developer.chrome.com/extensions/content_scripts.html">content_scripts</a>功能实现功能添加.<br>
+用了web_accessible_resources功能加载了series_fav_clicked.js文件, 主要是方便直接在网站的环境中添加代码, 省的一堆转义.  假如不嫌累的话, 直接在series_fav.js的addTheFavFeature函数中也可以完成所有功能.<br>
+代码本身比较简单, 需要说明的不多, 主要的功能都是使用JSONP实现在autohome的环境中运行了我服务器上的脚本而已.  </p>
+
+<h2>服务端接口说明</h2>
+
+<h3>增加车系收藏</h3>
+
+<p><a href="http://42.121.57.45:10001/add_fav">http://42.121.57.45:10001/add_fav</a><br>
+参数: type(收藏的类型), name(用户名), code(收藏编号) 以及任意想保存的属性.  比如在series的收藏中, 我添加了三个属性: desc(描述), price(价格), url(网址)<br>
+返回结果: 无  </p>
+
+<h3>删除车系收藏</h3>
+
+<p><a href="http://42.121.57.45:10001/del_fav">http://42.121.57.45:10001/del_fav</a><br>
+参数: type(收藏的类型), name(用户名), code(收藏编号)<br>
+返回结果: 无  </p>
+
+<h3>查询车系收藏情况</h3>
+
+<p><a href="http://42.121.57.45:10001/is_fav">http://42.121.57.45:10001/is_fav</a><br>
+参数: type(收藏的类型), name(用户名), code(收藏编号)<br>
+返回结果: Json对象, 唯一的属性为bool类型的result, true表示已收藏, false表示还未收藏.  </p>
+
+<h3>获取所有我的收藏</h3>
+
+<p><a href="http://42.121.57.45:10001/get_favs">http://42.121.57.45:10001/get_favs</a><br>
+参数: type(收藏的类型), name(用户名)<br>
+返回结果: Json类型, 为add_fav时添加的所有属性的数组, 典型的形式如下:  </p>
+
+<div class="highlight"><pre><span class="p">[{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"九天雁翎"</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"series"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"364"</span><span class="p">,</span><span class="nt">"desc"</span><span class="p">:</span><span class="s2">"长安福特-福克斯"</span><span class="p">,</span><span class="nt">"price"</span><span class="p">:</span><span class="s2">"9.98～16.99万"</span><span class="p">,</span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://www.autohome.com.cn/364/"</span><span class="p">},</span> 
+<span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"九天雁翎"</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"series"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"577"</span><span class="p">,</span><span class="nt">"desc"</span><span class="p">:</span><span class="s2">"长安福特-蒙迪欧-致胜"</span><span class="p">,</span><span class="nt">"price"</span><span class="p">:</span><span class="s2">"16.98～25.68万"</span><span class="p">,</span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://www.autohome.com.cn/577/"</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"九天雁翎"</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"series"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"2863"</span><span class="p">,</span><span class="nt">"desc"</span><span class="p">:</span><span class="s2">"长安福特-翼虎"</span><span class="p">,</span><span class="nt">"price"</span><span class="p">:</span><span class="s2">"19.38～27.58万"</span><span class="p">,</span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://www.autohome.com.cn/2863/"</span><span class="p">}]</span> 
+</pre></div>
+
+<p>目前的type类型是series(车系).<br>
+推荐将来的收藏类型为 spec(具体车型), new(新闻), article(文章), advice(导购)等, 以参考autohome本身网站链接的英文为最佳选择.<br>
+服务端添加新的类型不需要进行任何修改.  想要增加新的收藏类型的童鞋请按需随意添加^^<br>
+对看到ip地址不爽的童鞋表示抱歉, 因为这是阿里云的服务器, 而我没有备案, 所以虽然有域名, 但是没办法绑定.<br>
+更为诡异的是, 从国外访问阿里云的这个服务器也会出问题(所以在国外就没法使用这个插件), 天知道这是为什么.  </p>
+
+<h2>问题</h2>
+
+<p>编写Chrome Extension本身并不复杂, 主要就是理解manifes.json, 但是我一直有些很烦人的问题没有解决.<br>
+在Google Chrome Extensions中的javascript运行环境分为Extension本身和网页两种.  一种主要用来调用Google开放的Extension API, 一种主要用来操作DOM.  但是我一直没有找到在两种环境中共享代码的方法, 因此连一个简单的全局配置文件都没法写(更不用说想共享一些通用的函数了), 更让人恼火的是, 我也没有找到在Extension环境中共享代码的机制, 连Extension环境中的配置文件也没法写.  希望有人能够解答这个问题.  </p>
+
+<h2>License</h2>
+
+<p>Copyright (C) 2013 九天雁翎(jtianling)  </p>
+
+<p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License
+along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+
+<p>参考LICENSE文件</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Autohome-boost maintained by <a href="https://github.com/jtianling">jtianling</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

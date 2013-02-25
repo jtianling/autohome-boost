@@ -1,5 +1,6 @@
-# Autohome网站增强插件(Autohome boost)
+# Autohome增强插件(Autohome boost)
 ## 简介
+目前仅有Chrome版本.  
 目前仅有的功能是实现autohome对车系的收藏.  但是服务器方面已经实现了对收藏的通用实现, 并且客户端的代码已经开源.  
 欢迎大家添加更多的新功能, 比如对具体车型, 新闻, 文章等的收藏.  
 

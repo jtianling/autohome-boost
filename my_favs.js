@@ -12,7 +12,8 @@
   var name = nameNode.textContent;
   console.log("name: " + name);
 
-  var myAccountUrl = '"chrome-extension://dnokncbknhiodkeejcakabdoicehgkcd/my_account.html?' + encodeURIComponent(name) + '"';
+  var myAccountUrl = chrome.extension.getURL('my_account.html');
+  myAccountUrl = '"' + myAccountUrl + '?' + encodeURIComponent(name) + '"';
   var myAccountNode = document.createElement('li');
   myAccountNode.innerHTML = '<a href=' + myAccountUrl + ' target="_blank"> 收藏列表 </a>';
   document.getElementById('login').appendChild(myAccountNode); 

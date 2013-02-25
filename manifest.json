@@ -29,6 +29,7 @@
   ],
 
   "web_accessible_resources" : [
+    "my_account.html",
     "series_fav_clicked.js"
   ],
 

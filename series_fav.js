@@ -5,8 +5,14 @@ console.log(document.URL);
 if ( document.URL.match(seriesUrlPattern) !== null ) {
 
   // get the name and code
-  var name = document.getElementsByClassName("mini_right")[0].getElementsByClassName("reda")[0].textContent;
+  var nameNode = document.getElementsByClassName("mini_right")[0].getElementsByClassName("reda")[0];
+  var name = nameNode.textContent;
   console.log("name: " + name);
+
+  var myAccountUrl = '"chrome-extension://dnokncbknhiodkeejcakabdoicehgkcd/my_account.html?' + encodeURIComponent(name) + '"';
+  var myAccountNode = document.createElement('li');
+  myAccountNode.innerHTML = '<a href=' + myAccountUrl + ' target="_blank"> 收藏列表 </a>';
+  document.getElementById('login').appendChild(myAccountNode); 
 
   var href = document.getElementsByClassName("carname")[0].getElementsByTagName("a")[0].getAttribute("href");
   var code = href.substring(0, href.length - 1);
@@ -14,7 +20,7 @@ if ( document.URL.match(seriesUrlPattern) !== null ) {
 
   // decide if it was faved.
   var xhr = new XMLHttpRequest();
-  var url = 'http://localhost:10001/is_series_fav?name=' + name + '&code=' + code;
+  var url = 'http://localhost:10001/is_series_fav?name=' + encodeURIComponent(name) + '&code=' + code;
   xhr.onreadystatechange = handler;
   xhr.open("GET", url, true);
   xhr.send(null);
@@ -45,7 +51,9 @@ if ( document.URL.match(seriesUrlPattern) !== null ) {
   function addTheFavFeature() {
     var element = document.getElementsByClassName("carname");
     element[0].outerHTML = element[0].outerHTML + '<div class="series_fav" id="series_fav"> \
-                           <a id="series_fav_href" href="javascript:void(0)" onclick="series_fav_clicked();">' + favText + '</a> </div>';
+                           <a id="series_fav_href" href="javascript:void(0)" target="_blank" onclick="series_fav_clicked();">' + favText + '</a> </div>';
+
+
   }
 }
 

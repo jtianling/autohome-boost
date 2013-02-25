@@ -1,9 +1,14 @@
 {  
   "name": "autohome boost",  
   "version": "0.1.0",  
-  "description": "为汽车之家增加一些缺失的功能, 比如车系的收藏和车型的收藏.",  
+  "description": "为汽车之家增加一些缺失的功能, 目前只有车系的收藏功能.",  
+
+  "icons": { "16": "icon16.png",
+           "48": "icon48.png",
+          "128": "icon128.png" },
+
   "page_action": {  
-    "default_icon": "icon.png" ,
+    "default_icon": "icon48.png" ,
     "default_title": "autohome boost",
     "default_popup": "credit.html"
   }, 
